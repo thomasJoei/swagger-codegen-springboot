@@ -1,0 +1,100 @@
+swagger: '2.0'
+info:
+  version: '0.3.1'
+  title: Petstore
+  description: A simple Petstore API
+
+basePath: /v1
+schemes:
+  - http
+  - https
+
+produces:
+  - application/json
+
+
+definitions:
+  pet:
+    $ref: ./definitions/pet/pet.yml
+  newPet:
+    $ref: ./definitions/pet/newPet.yml
+  errorModel:
+    $ref: ./definitions/error/errorModel.yml
+
+paths:
+  /pets:
+    get:
+      description: Returns all pets from the system that the user has access to
+      operationId: findPets
+      produces:
+        - application/json
+      parameters:
+        - name: tags
+          in: query
+          description: tags to filter by
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: limit
+          in: query
+          description: maximum number of results to return
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: pet response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/pet'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      description: Creates a new pet in the store.Duplicates are allowed
+      operationId: addPet
+      produces:
+        - application/json
+      parameters:
+        - name: pet
+          in: body
+          description: Pet to add to the store
+          required: true
+          schema:
+            $ref: '#/definitions/newPet'
+      responses:
+        '200':
+          description: pet response
+          schema:
+            $ref: '#/definitions/pet'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  /pets/{id}:
+    get:
+      description: Returns a pet
+      operationId: findPetById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: ID of pet to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: pet response
+          schema:
+            $ref: '#/definitions/pet'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+
