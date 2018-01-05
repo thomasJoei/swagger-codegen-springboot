@@ -1,8 +1,0 @@
-pet:
-  $ref: ./pet/pet.yml
-newPet:
-  $ref: ./definitions/pet/newPet.yml
-human:
-  $ref: ./definitions/human/human.yml
-errorModel:
-  $ref: ./definitions/error/errorModel.yml
