@@ -8,7 +8,7 @@ The goals of that project are :
  * To show how to use an OpenAPI specification file to generate server code
  (here interfaces and model classes).
  * To avoid the problem of **overwritten code** during code generation.
- * Give a already set up project, that you can use as a start to build your Rest API.
+ * Provide a project already set up and ready to run, that you can use as a start to build your Rest API.
 
 
 ## Quick start
