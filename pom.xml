@@ -15,6 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <cucumber.java.version>1.2.4</cucumber.java.version>
+        <integrationTests.skip>false</integrationTests.skip>
     </properties>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -36,6 +37,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jersey</artifactId>
         </dependency>
+
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -47,11 +49,6 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>com.fasterxml.jackson.core</groupId>-->
-            <!--<artifactId>jackson-databind</artifactId>-->
-            <!--<version>2.9.3</version>-->
-        <!--</dependency>-->
 
         <!--SWAGGER CODEGEN-->
         <dependency>
@@ -146,14 +143,41 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.2.5.RELEASE</version>
+                <version>${parent.version}</version>
                 <executions>
+                    <!--<execution>-->
+                    <!--<goals>-->
+                    <!--<goal>repackage</goal>-->
+                    <!--</goals>-->
+                    <!--</execution>-->
                     <execution>
+                        <id>pre-integration-test</id>
                         <goals>
-                            <goal>repackage</goal>
+                            <goal>start</goal>
                         </goals>
+                        <configuration>
+                            <skip>${integrationTests.skip}</skip>
+                        </configuration>
                     </execution>
+                    <execution>
+                        <id>post-integration-test</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${integrationTests.skip}</skip>
+                        </configuration>
+                    </execution>
+
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <configuration>
+                    <skip>${integrationTests.skip}</skip>
+                </configuration>
             </plugin>
 
         </plugins>
