@@ -1,4 +1,4 @@
-package io.swagger.api.exceptions;
+package com.centric.productstore.api.exceptions;
 
 public class ApiException extends Exception{
     private int code;

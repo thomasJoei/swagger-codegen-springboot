@@ -1,11 +1,11 @@
-package io.swagger.api.services.impl;
+package com.centric.productstore.api.services.impl;
 
-import io.swagger.api.db.dao.ProductRepository;
-import io.swagger.api.db.models.Product;
-import io.swagger.api.services.ProductService;
-import io.swagger.model.NewProductDto;
-import io.swagger.model.ProductDto;
-import io.swagger.model.ProductPage;
+import com.centric.productstore.api.db.dao.ProductRepository;
+import com.centric.productstore.api.db.models.Product;
+import com.centric.productstore.api.services.ProductService;
+import com.centric.productstore.api.dto.NewProductDto;
+import com.centric.productstore.api.dto.ProductDto;
+import com.centric.productstore.api.dto.ProductPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +29,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto addProduct(NewProductDto newProduct) {
-        ;
         Product persistedProduct = productRepository.save(newProductDtoToProduct(newProduct));
         return productToProductDto(persistedProduct);
     }

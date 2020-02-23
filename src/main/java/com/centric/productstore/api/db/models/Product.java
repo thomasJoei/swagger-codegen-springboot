@@ -1,4 +1,4 @@
-package io.swagger.api.db.models;
+package com.centric.productstore.api.db.models;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;

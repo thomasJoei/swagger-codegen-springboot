@@ -1,6 +1,6 @@
-package io.swagger.api.db.dao;
+package com.centric.productstore.api.db.dao;
 
-import io.swagger.api.db.models.Product;
+import com.centric.productstore.api.db.models.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

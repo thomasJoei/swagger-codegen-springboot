@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>IO.Swagger.Petstore</groupId>
-    <artifactId>io.swagger.petstore</artifactId>
+    <groupId>com.centric.productstore</groupId>
+    <artifactId>productstore-api</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
         <java.version>1.8</java.version>
@@ -91,6 +91,8 @@
                         <configuration>
                             <inputSpec>./api-contract/api.yml</inputSpec>
                             <language>spring</language>
+                            <apiPackage>com.centric.productstore.api</apiPackage>
+                            <modelPackage>com.centric.productstore.api.dto</modelPackage>
                             <configOptions>
                                 <sourceFolder>swagger</sourceFolder>
                                 <java8>true</java8>

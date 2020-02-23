@@ -1,7 +1,5 @@
-package io.swagger.api.exceptions;
+package com.centric.productstore.api.exceptions;
 
-
-import io.swagger.api.exceptions.ApiException;
 
 public class NotFoundException extends ApiException {
     private int code;

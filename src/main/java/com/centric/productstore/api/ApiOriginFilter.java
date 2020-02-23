@@ -1,4 +1,4 @@
-package io.swagger.api;
+package com.centric.productstore.api;
 
 import java.io.IOException;
 
