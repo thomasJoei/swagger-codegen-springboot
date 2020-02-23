@@ -40,7 +40,7 @@ public class Product {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "product_tag", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "tag_name")
-    Set<String> tags;
+    private Set<String> tags;
 
     @Column(name = "created_at",
         columnDefinition = "TIMESTAMP",

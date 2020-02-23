@@ -10,17 +10,17 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
 import static org.springframework.http.ResponseEntity.ok;
 
-@Controller
+@RestController
 @Api(tags = {"products"})
 public class ProductsController implements ProductsApi {
 
@@ -38,20 +38,18 @@ public class ProductsController implements ProductsApi {
 
 
     @Override
-    public ResponseEntity<ProductPage> findProducts(@RequestParam(value = "category", required = false) String category,
-                                                    @RequestParam(value = "limit", required = false) Integer limit,
-                                                    @RequestParam(value = "page", required = false) Integer page) {
+    public ResponseEntity<ProductPage> findAllByCategory(@RequestParam(value = "category", required = false) String category,
+                                                         @RequestParam(value = "limit", required = false) Integer limit,
+                                                         @RequestParam(value = "page", required = false) Integer page) {
         limit = limit == null ? 10 : limit;
         page = page == null ? 0 : page;
 
-        return ok(productService.findProducts(category, limit, page));
+        return ok(productService.findAllByCategory(category, limit, page));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorModel> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) throws MethodArgumentNotValidException {
+    private ResponseEntity<ErrorModel> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) throws MethodArgumentNotValidException {
 
-//        Spring exception wrapping provide more detailed information on the error
-//        throw e;
         return ResponseEntity.badRequest()
             .body(new ErrorModel()
                 .code(400)
@@ -60,7 +58,7 @@ public class ProductsController implements ProductsApi {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorModel> handleException(Exception e) {
+    private ResponseEntity<ErrorModel> handleException(Exception e) {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(

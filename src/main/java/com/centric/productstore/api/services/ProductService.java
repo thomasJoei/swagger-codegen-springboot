@@ -9,5 +9,5 @@ public interface ProductService {
 
     ProductDto addProduct(NewProductDto newProduct);
 
-    ProductPage findProducts(String category, Integer limit, Integer page);
+    ProductPage findAllByCategory(String category, Integer limit, Integer page);
 }

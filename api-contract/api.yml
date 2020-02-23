@@ -25,7 +25,7 @@ paths:
   /products:
     get:
       description: Returns all products
-      operationId: findProducts
+      operationId: findAllByCategory
       produces:
         - application/json
       parameters:
@@ -65,10 +65,10 @@ paths:
                 items:
                   $ref: '#/definitions/productDto'
 
-        default:
-          description: unexpected error
-          schema:
-            $ref: '#/definitions/errorModel'
+#        default:
+#          description: unexpected error
+#          schema:
+#            $ref: '#/definitions/errorModel'
     post:
       description: Creates a new product
       operationId: addProduct
@@ -83,11 +83,10 @@ paths:
             $ref: '#/definitions/newProductDto'
       responses:
         '200':
-          description: pet response
           schema:
             $ref: '#/definitions/productDto'
-        default:
-          description: unexpected error
-          schema:
-            $ref: '#/definitions/errorModel'
+#        default:
+#          description: unexpected error
+#          schema:
+#            $ref: '#/definitions/errorModel'
 
