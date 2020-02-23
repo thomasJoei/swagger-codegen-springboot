@@ -37,7 +37,7 @@ public class Product {
     @Column(name = "category")
     private String category;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "product_tag", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "tag_name")
     Set<String> tags;

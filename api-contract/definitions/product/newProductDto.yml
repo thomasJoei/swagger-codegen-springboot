@@ -2,6 +2,9 @@ type: object
 title: newProductDto
 required:
   - name
+  - brand
+  - category
+  - description
 properties:
 
   name:

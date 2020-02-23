@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductPage findProducts(String category, Integer limit, Integer pageNumber) {
         Pageable sortedByCreationDate =
-            PageRequest.of(pageNumber, limit, Sort.by("createdAt"));
+            PageRequest.of(pageNumber, limit, Sort.by("createdAt").descending());
         Page<Product> page = productRepository.findAllByCategory(category, sortedByCreationDate);
 
         return pageToProductPage(pageNumber, page);
