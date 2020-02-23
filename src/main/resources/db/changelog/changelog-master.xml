@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="now()" dbms="mysql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="clob" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="varchar(36)" dbms="h2, mysql, mariadb"/>
+
+
+    <changeSet id="product_table" author="thomas.joeisseint">
+
+        <createTable tableName="product">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="brand" type="VARCHAR(255)"/>
+            <column name="category" type="VARCHAR(255)"/>
+            <column name="created_at" type="DATETIME" defaultValueComputed="now()"/>
+        </createTable>
+
+        <createIndex indexName="idx_product_category"
+                     tableName="product">
+            <column name="category"/>
+        </createIndex>
+
+
+        <createTable tableName="product_tag">
+            <column name="product_id" type="UUID">
+                <constraints nullable="false"
+                             foreignKeyName="fk_product_tag_product"
+                             references="product(id)"/>
+            </column>
+            <column name="tag_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

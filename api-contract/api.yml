@@ -1,0 +1,93 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: ProductStore
+  description: A simple Product API
+
+basePath: /v1
+schemes:
+  - http
+  - https
+
+produces:
+  - application/json
+
+
+definitions:
+  productDto:
+    $ref: ./definitions/product/productDto.yml
+  newProductDto:
+    $ref: ./definitions/product/newProductDto.yml
+  errorModel:
+    $ref: ./definitions/error/errorModel.yml
+
+paths:
+  /products:
+    get:
+      description: Returns all products
+      operationId: findProducts
+      produces:
+        - application/json
+      parameters:
+        - name: category
+          in: query
+          description: category to filter by
+          required: false
+          type: string
+        - name: limit
+          in: query
+          description: maximum number of results to return
+          required: false
+          type: integer
+          format: int32
+        - name: page
+          in: query
+          description: page index
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: Product response
+          schema:
+            title: ProductPage
+            type: object
+            properties:
+              currentPage:
+                type: integer
+              totalPages:
+                type: integer
+              totalElements:
+                type: integer
+                format: int64
+              products:
+                type: array
+                items:
+                  $ref: '#/definitions/productDto'
+
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      description: Creates a new product
+      operationId: addProduct
+      produces:
+        - application/json
+      parameters:
+        - name: newProductDto
+          in: body
+          description: Product to add to the store
+          required: true
+          schema:
+            $ref: '#/definitions/newProductDto'
+      responses:
+        '200':
+          description: pet response
+          schema:
+            $ref: '#/definitions/productDto'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+

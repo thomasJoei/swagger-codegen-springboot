@@ -1,0 +1,17 @@
+
+title: productDto
+type: object
+
+definitions:
+  newProductDto:
+    title: NewProductDto
+
+
+allOf:
+  - $ref: '#/definitions/newProductDto'
+  - properties:
+      id:
+        type: string
+      created_at:
+        type: string
+        format: date-time

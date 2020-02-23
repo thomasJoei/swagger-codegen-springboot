@@ -1,0 +1,55 @@
+
+logging:
+  level:
+    liquibase: INFO
+
+spring:
+  application:
+    name: SwaggerCodegenLiquibaseH2
+  profiles:
+    active: dev
+    include:
+      - swagger
+
+  jackson:
+    serialization:
+      indent-output: true
+      write-dates-as-timestamps: false
+
+  datasource:
+    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    url: jdbc:h2:~/productsDb;AUTO_SERVER=TRUE
+    username: centric
+    password: password
+    hikari:
+      poolName: Hikari
+      auto-commit: false
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.id.new_generator_mappings: true
+      hibernate.connection.provider_disables_autocommit: true
+      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_query_cache: false
+      hibernate.generate_statistics: false
+
+  liquibase:
+    # Remove 'faker' if you do not want the sample data to be loaded automatically
+#    contexts: dev, faker
+#    contexts: dev
+#    change-log: classpath:liquibase/master.xml
+    change-log: classpath:db/changelog/changelog-master.xml
+
+    enabled: true
+
+server:
+  port: 8080
+  servlet:
+    context-path: /v1
